@@ -75,7 +75,7 @@ const Login = () => {
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-white"
                 onClick={() => setShowPassword(!showPassword)}
               >
-                {showPassword ? <AiOutlineEyeInvisible size={18} /> : <AiOutlineEye size={18} />}
+                {showPassword ? <AiOutlineEye size={18} /> : <AiOutlineEyeInvisible size={18} />}
               </button>
             </div>
           </div>
