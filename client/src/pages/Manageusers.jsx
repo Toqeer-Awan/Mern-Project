@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Cards from '../components/Cards';
 import Table from '../components/Table';
+import{ chartData } from '../assets/Chartsdata';
 
 const Manageusers = () => {
   const [formData, setFormData] = useState({
@@ -99,7 +100,7 @@ const Manageusers = () => {
 
   return (
     <>
-    <Cards />
+    <Cards cardsData={chartData} />
     <Table />
     <div className="min-h-screen bg-gray-200 p-6">
       <div className=" mx-auto">

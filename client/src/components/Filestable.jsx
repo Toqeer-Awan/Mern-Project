@@ -63,7 +63,7 @@ const Filestable = ({
         <div className="col-span-2">Actions</div>
       </div>
 
-      {/* Table Body - EXACT SAME as Upload page */}
+      
       <div className="divide-y divide-gray-100">
         {files.map((file) => (
           <div key={file.id} className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-gray-50">

@@ -1,36 +1,23 @@
 import React from "react";
+import { Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend
+} from 'chart.js';
 
-const Cards = () => {
-  const cardsData = [
-    {
-      id: 1,
-      title: "Card 1",
-      description:
-        "This is dummy card. To check responsiveness of this project for all screens.",
-    },
-    {
-      id: 2,
-      title: "Card 2",
-      description:
-        "This is dummy card. To check responsiveness of this project for all screens.",
-    },
-    {
-      id: 3,
-      title: "Card 3",
-      description:
-        "This is dummy card. To check responsiveness of this project for all screens.",
-    },
-    {
-      id: 4,
-      title: "Card 4",
-      description:
-        "This is dummy card. To check responsiveness of this project for all screens.",
-    },
-  ];
-  
+// Register ChartJS components for Doughnut chart
+ChartJS.register(
+  ArcElement,
+  Tooltip,
+  Legend
+);
+
+const Cards = ({ cardsData }) => {
   return (
     <div className="p-4">
-      <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6">
         {cardsData.map((card) => (
           <div 
             key={card.id} 
@@ -38,9 +25,47 @@ const Cards = () => {
           >
             <div className="mb-4">
               <h2 className="text-xl font-bold text-gray-800 mb-2">{card.title}</h2>
-              <p className="text-gray-600">
+              <p className="text-gray-600 mb-4">
                 {card.description}
               </p>
+              
+              {/* Doughnut Chart */}
+              {card.chartData && (
+                <div className="h-64">
+                  <Doughnut 
+                    data={card.chartData}
+                    options={{
+                      responsive: true,
+                      maintainAspectRatio: false,
+                      cutout: '65%',
+                      plugins: {
+                        legend: {
+                          display: true,
+                          position: 'bottom',
+                          labels: {
+                            padding: 20,
+                            usePointStyle: true,
+                            font: {
+                              size: 12
+                            }
+                          }
+                        },
+                        tooltip: {
+                          callbacks: {
+                            label: function(context) {
+                              const label = context.label || '';
+                              const value = context.raw || 0;
+                              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                              const percentage = Math.round((value / total) * 100);
+                              return `${label}: ${value} (${percentage}%)`;
+                            }
+                          }
+                        }
+                      }
+                    }}
+                  />
+                </div>
+              )}
             </div>
           </div>
         ))}
