@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MdUpload, MdImage, MdPictureAsPdf, MdDescription, MdVideoLibrary, MdInsertDriveFile, MdCloud, MdStorage } from "react-icons/md";
+import { MdUpload, MdImage, MdPictureAsPdf, MdDescription, MdVideoLibrary,MdCloud, MdStorage } from "react-icons/md";
 import Filestable from '../components/Filestable';
 
 const Upload = () => {
@@ -59,7 +59,7 @@ const Upload = () => {
     return new Promise((resolve) => {
       let progress = 0;
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 15) + 5; // Random progress between 5-20%
+        progress += Math.floor(Math.random() * 15) + 5;
         progress = Math.min(progress, 100);
         
         setFiles(prev => prev.map(file => 
@@ -192,12 +192,12 @@ const Upload = () => {
                         <p className="text-sm text-gray-600">Store files on your own server</p>
                       </div>
                     </div>
-                    <ul className="text-sm text-gray-500 space-y-1 mt-3 ml-8">
+                    {/* <ul className="text-sm text-gray-500 space-y-1 mt-3 ml-8">
                       <li>• Files stored on your server</li>
                       <li>• Full control over data</li>
                       <li>• No additional costs</li>
                       <li>• Limited by server storage</li>
-                    </ul>
+                    </ul> */}
                   </div>
                 </div>
               </label>
@@ -221,12 +221,12 @@ const Upload = () => {
                         <p className="text-sm text-gray-600">Store files on Amazon S3</p>
                       </div>
                     </div>
-                    <ul className="text-sm text-gray-500 space-y-1 mt-3 ml-8">
+                    {/* <ul className="text-sm text-gray-500 space-y-1 mt-3 ml-8">
                       <li>• Scalable cloud storage</li>
                       <li>• High availability</li>
                       <li>• Pay-as-you-go pricing</li>
                       <li>• Automatic backups</li>
-                    </ul>
+                    </ul> */}
                   </div>
                 </div>
               </label>

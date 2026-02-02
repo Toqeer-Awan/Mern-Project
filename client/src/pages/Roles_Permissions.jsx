@@ -1,43 +1,66 @@
 import React, { useState } from "react";
 
 const Roles_Permissions = () => {
-  const permissionsList = ["View", "Upload", "Download", "Delete"];
 
-  const [permissions, setPermissions] = useState({
+  const permissions = [
+    { key: "view", label: "View" },
+    { key: "upload", label: "Upload" },
+    { key: "download", label: "Download" },
+    { key: "delete", label: "Delete" },
+    { key: "addUser", label: "Add User" },
+    { key: "removeUser", label: "Remove User" },
+    { key: "changeRole", label: "Change Role" },
+  ];
+
+ 
+  const [roles, setRoles] = useState({
     Admin: {
-      View: true,
-      Upload: true,
-      Download: true,
-      Delete: true,
+      view: true,
+      upload: true,
+      download: true,
+      delete: true,
+      addUser: true,
+      removeUser: true,
+      changeRole: true,
+    },
+    Moderator: {
+      view: true,
+      upload: true,
+      download: true,
+      delete: false,
+      addUser: false,
+      removeUser: false,
+      changeRole: false,
     },
     User: {
-      View: true,
-      Upload: true,
-      Download: true,
-      Delete: false,
+      view: true,
+      upload: true,
+      download: true,
+      delete: false,
+      addUser: false,
+      removeUser: false,
+      changeRole: false,
     },
   });
 
-  // Handle checkbox toggle
-  const handleChange = (role, permission) => {
-    setPermissions((prev) => ({
+  //  Toggle permission
+  const togglePermission = (role, permissionKey) => {
+    setRoles((prev) => ({
       ...prev,
       [role]: {
         ...prev[role],
-        [permission]: !prev[role][permission],
+        [permissionKey]: !prev[role][permissionKey],
       },
     }));
   };
 
-  // Save button handler
+  // Save handler
   const handleSave = () => {
-    console.log("Saved Permissions:", permissions);
-
-    // Later you can send this to backend
-    // axios.post("/api/permissions", permissions)
-
+    console.log("Saved Roles & Permissions:", roles);
     alert("Permissions updated successfully ✅");
   };
+
+  const roleNames = Object.keys(roles);
 
   return (
     <div className="bg-gray-200 min-h-full">
@@ -48,54 +71,48 @@ const Roles_Permissions = () => {
 
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
+            {/*  Dynamic Header */}
             <thead>
               <tr className="bg-gray-800 text-white">
                 <th className="text-left p-3">Permissions</th>
-                <th className="text-center p-3">Admin</th>
-                <th className="text-center p-3">User</th>
+                {roleNames.map((role) => (
+                  <th key={role} className="text-center p-3">
+                    {role}
+                  </th>
+                ))}
               </tr>
             </thead>
 
+            {/* Dynamic Body */}
             <tbody>
-              {permissionsList.map((permission) => (
+              {permissions.map(({ key, label }) => (
                 <tr
-                  key={permission}
+                  key={key}
                   className="border-b hover:bg-gray-100 transition"
                 >
                   <td className="p-3 font-medium text-gray-700">
-                    {permission}
+                    {label}
                   </td>
 
-                  {/* Admin checkbox */}
-                  <td className="p-3 text-center">
-                    <input
-                      type="checkbox"
-                      checked={permissions.Admin[permission]}
-                      onChange={() =>
-                        handleChange("Admin", permission)
-                      }
-                      className="w-4 h-4 accent-orange-600 cursor-pointer"
-                    />
-                  </td>
-
-                  {/* User checkbox */}
-                  <td className="p-3 text-center">
-                    <input
-                      type="checkbox"
-                      checked={permissions.User[permission]}
-                      onChange={() =>
-                        handleChange("User", permission)
-                      }
-                      className="w-4 h-4 accent-orange-600 cursor-pointer"
-                    />
-                  </td>
+                  {roleNames.map((role) => (
+                    <td key={role} className="p-3 text-center">
+                      <input
+                        type="checkbox"
+                        checked={roles[role][key]}
+                        onChange={() =>
+                          togglePermission(role, key)
+                        }
+                        className="w-4 h-4 accent-orange-600 cursor-pointer"
+                      />
+                    </td>
+                  ))}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        {/* Save Button */}
+        {/*  Save Button */}
         <div className="flex justify-end mt-6">
           <button
             onClick={handleSave}
