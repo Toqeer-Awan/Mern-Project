@@ -238,7 +238,7 @@ const Add_User = () => {
                   </button>
                   <button
                     type="submit"
-                    className="px-6 py-2.5 bg-gray-800 text-white font-medium rounded-lg hover:bg-orange-600 transition-colors"
+                    className="px-6 py-2.5 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg transition-colors"
                   >
                     Create User
                   </button>
